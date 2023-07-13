@@ -12,7 +12,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
 
+::selection {
+  background: transparent;
+}
+#display::selection {
+  background: #2993cc;
 }
 
 input:focus {
