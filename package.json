@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "D:/SCOOP/apps/nodejs-lts/current/bin/vite.ps1",
+    "build": "D:/SCOOP/apps/nodejs-lts/current/bin/vite.ps1 build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
