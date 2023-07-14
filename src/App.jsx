@@ -46,11 +46,6 @@ function Calc({ set_sidebar }) {
 }
 
 function Display({ input_buffer }) {
-  const select_bg = {
-    '::selection': { // 选中文本的样式
-      backgroundColor: 'yellow',
-    },
-  };
   return (
     <div className='h-20 w-full'>
       <div id='display' className='w-full h-full flex items-center justify-end	text-5xl font-medium p-2' >
@@ -66,34 +61,43 @@ function KeyBoard({ set_input_buffer }) {
   const calcValue = (buffer) => {
     return '0'
   }
-
+  const singleSymbol = [
+    '+', '-', '*', '/', '%', '^', '.',
+  ];
 
   const handleEvent = (event) => {
     const value = event.target.id;
     set_input_buffer((buffer) => {
-      switch (value) {
-        case '': {
-          return buffer
+
+      if (value === '') {
+        return buffer
+      }
+      else if (singleSymbol.includes(value)) {
+        let lastChar = buffer.slice(-1);
+        if ( singleSymbol.includes(lastChar) ) {
+          return buffer.slice(0, -1) + value;
         }
-        case 'A/C': {
+        return buffer + value;
+      }
+      else if (value === 'A/C') {
+        return '0'
+      }
+      else if (value === '=') {
+        return calcValue(buffer);
+      }
+      else if (value === 'del') {
+        if (buffer.length == 1) {
           return '0'
         }
-        case '=': {
-          return calcValue(buffer);
-        }
-        case 'del': {
-          if (buffer.length == 1) {
-            return '0'
-          }
-          return buffer.slice(0, -1);
-        }
-        default: {
-          if (buffer != '0') {
-            return buffer + value
-          }
-          return value
-        }
+        return buffer.slice(0, -1);
       }
+      else {
+        if (buffer != '0') {
+          return buffer + value
+        }
+        return value
+      }
+
     });
 
   }
