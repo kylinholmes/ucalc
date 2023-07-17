@@ -25,22 +25,20 @@ function SideBar({ show = false, set_sidebar }) {
         </>
           : <></>
       }
-
     </div>
 
   )
 }
 
-function Calc({ set_sidebar }) {
+function Calculator({ set_sidebar }) {
   const [input_buffer, set_input_buffer] = useState('0');
   return (
     <div className='h-full w-full flex flex-col gap-10 p-4' style={{ backgroundColor: "#202020" }}>
       <div className='flex flex-row'>
         <button onClick={() => set_sidebar((current) => !current)}>按钮</button>
-        {/* <div>常规</div> */}
       </div>
-      <Display input_buffer={input_buffer} />
-      <KeyBoard set_input_buffer={set_input_buffer} />
+      <Display input_buffer={ input_buffer } />
+      <KeyBoard set_input_buffer={ set_input_buffer } />
     </div>
   )
 }
@@ -49,7 +47,7 @@ function Display({ input_buffer }) {
   return (
     <div className='h-20 w-full'>
       <div id='display' className='w-full h-full flex items-center justify-end	text-5xl font-medium p-2' >
-        {input_buffer}
+        { input_buffer }
       </div>
     </div>
   )
@@ -128,7 +126,6 @@ function KeyBoard({ set_input_buffer }) {
       <Key symbol="*" />
       <Key symbol="+" />
       <Key extraClass='bg-keyblue hover:bg-keybluehover active:bg-keyblueactive text-black' symbol='=' />
-
     </div>
   )
 }
@@ -143,12 +140,16 @@ function Key({ symbol, extraClass = 'bg-key hover:bg-keyhover active:bg-keyactiv
 
 function App() {
   const [show_sidebar, set_sidebar] = useState(false);
+  window.onkeydown = (event) => {
+    let key = event.key;
+    console.log(key)
+  };
   return (
     <div className='relative  w-full h-full min-w-120 '>
       <div className='w-full  left-0 top-0 absolute'>
         <SideBar show={show_sidebar} set_sidebar={set_sidebar} />
       </div>
-      <Calc set_sidebar={set_sidebar} />
+      <Calculator set_sidebar={set_sidebar} />
     </div>
 
   )
